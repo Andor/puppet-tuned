@@ -1,12 +1,12 @@
 class tuned::config (
-  $profile,
-  $dynamic_tuning,
-  $sleep_interval,
-  $update_interval,
-  $main_conf,
-  Stdlib::Compat::Absolute_path $profiles_path,
-  $active_profile_conf,
-) {
+  String $profile = $tuned::profile,
+  Boolean $dynamic_tuning = $tuned::dynamic_tuning,
+  Integer $sleep_interval = $tuned::sleep_interval,
+  Integer $update_interval = $tuned::update_interval,
+  Variant[Stdlib::Compat::Absolute_path, String[0,0]] $main_conf = $tuned::main_conf,
+  Stdlib::Compat::Absolute_path $profiles_path = $tuned::profiles_path,
+  String $active_profile_conf = $tuned::active_profile_conf,
+) inherits tuned {
   $_active_profile_fn = "${profiles_path}/${active_profile_conf}"
 
   # if no profile specified, tuned will detect suitable

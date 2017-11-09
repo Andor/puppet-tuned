@@ -1,8 +1,10 @@
 class tuned::params {
   $enabled = true
-  $packages = ['tuned']
+  $packages = []
   $sleep_interval = 1
   $update_interval = 10
+  $package_ensure = 'present'
+  $service_ensure = 'running'
 
   if $::tuned_version and $::tuned_version =~ /^(\d+)\.[\d\.]+$/ {
     $_majversion = $1
@@ -16,7 +18,7 @@ class tuned::params {
       $majversion = pick($_majversion, '2')
       $dynamic_tuning = true
       $main_conf = '/etc/tuned/tuned-main.conf'
-      $services = ['tuned']
+      $services = []
       $profile = '' #autodetect
       $profiles_path = '/etc/tuned'
       $active_profile_conf = 'active_profile'
@@ -28,7 +30,7 @@ class tuned::params {
           $majversion = pick($_majversion, '0')
           $dynamic_tuning = false
           $main_conf = '' # unsupported
-          $services = ['tuned', 'ktune']
+          $services = ['ktune']
           $profile = 'default'
           $profiles_path = '/etc/tune-profiles'
           $active_profile_conf = 'active-profile'
@@ -38,7 +40,7 @@ class tuned::params {
           $majversion = pick($_majversion, '2')
           $dynamic_tuning = false
           $main_conf = '/etc/tuned/tuned-main.conf'
-          $services = ['tuned']
+          $services = []
           $profile = '' #autodetect
           $profiles_path = '/etc/tuned'
           $active_profile_conf = 'active_profile'

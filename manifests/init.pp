@@ -9,42 +9,21 @@ class tuned (
   Stdlib::Compat::Absolute_path $profiles_path                   = $tuned::params::profiles_path,
   String $active_profile_conf                                    = $tuned::params::active_profile_conf,
   Array $packages                                                = $tuned::params::packages,
-  Array $services                                                = $tuned::params::services
+  Array $services                                                = $tuned::params::services,
+  String $package_ensure                                         = $tuned::params::package_ensure,
+  String $service_ensure                                         = $tuned::params::service_ensure,
 ) inherits tuned::params {
 
-  class { 'tuned::install':
-    enabled  => $enabled,
-    packages => $packages,
-  }
-
-  class { 'tuned::service':
-    enabled  => $enabled,
-    services => $services,
-  }
+  include tuned::install
+  include tuned::service
 
   if $enabled {
-    class { 'tuned::config':
-      profile             => $profile,
-      dynamic_tuning      => $dynamic_tuning,
-      sleep_interval      => $sleep_interval,
-      update_interval     => $update_interval,
-      main_conf           => $main_conf,
-      profiles_path       => $profiles_path,
-      active_profile_conf => $active_profile_conf,
-    }
+    include tuned::config
 
-    anchor { 'tuned::begin': ; }
-      -> Class['tuned::install']
-      -> Class['tuned::config']
-      -> Class['tuned::service']
-      -> anchor { 'tuned::end': ; }
-
-    Class['tuned::install']
-      ~> Class['tuned::service']
-  } else {
-    anchor { 'tuned::begin': ; }
-      -> Class['tuned::service']
-      -> Class['tuned::install']
-      -> anchor { 'tuned::end': ; }
+    Class['tuned::install'] -> Class['tuned::config'] -> Class['tuned::service']
+    Class['tuned::install'] ~> Class['tuned::service']
+  }
+  else {
+    Class['tuned::service'] -> Class['tuned::install']
   }
 }
