@@ -1,1 +1,15 @@
+## Misc. editor/IDE garbage
+# Vim swap files (.xxx.swp, .xxx.swo, and so on)
+.*.sw?
+# Emacs backup files
+*~
+# ctags tags file
+/tags
+
+# rbenv's local ruby version override
+/.ruby-version
+
+# MacOS X directory settings
+.DS_Store
+
 /pkg
