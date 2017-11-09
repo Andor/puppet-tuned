@@ -1,5 +1,5 @@
 source ENV['GEM_SOURCE'] || "https://rubygems.org"
-puppetversion = ENV['PUPPET_GEM_VERSION'] || '~> 3.8.0'
+puppetversion = ENV['PUPPET_GEM_VERSION'] || '~> 4.10.0'
 
 group :development, :unit_tests do
   gem 'r10k',                    :require => false

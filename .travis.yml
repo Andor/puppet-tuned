@@ -1,0 +1,17 @@
+---
+language: ruby
+rvm:
+  - 2.0.0
+  - 2.3.0
+  - 2.4.0
+cache: bundler
+sudo: false
+bundler_args: '--without development'
+script: "bundle exec rake spec SPEC_OPTS='--format documentation'"
+env:
+  - PUPPET_VERSION="~> 4.8.0"  # debian stretch and jessie-backports
+  - PUPPET_VERSION="~> 4.10.0" # latest 4.x version
+  - PUPPET_VERSION="~> 5.3.0"
+notifications:
+  email:
+    - andrew.golovkov@gmail.com

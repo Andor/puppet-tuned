@@ -17,6 +17,6 @@
   kernel: Linux
   concat_basedir: /var/lib/puppet/concat
   mysql_version: '5.6.16'
-  puppetversion: 3.8.2
   processorcount: 2
   augeasversion: '1.0.0'
+  tuned_version: '2.7.1'
